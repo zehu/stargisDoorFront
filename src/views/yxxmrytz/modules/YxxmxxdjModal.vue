@@ -8,23 +8,22 @@
     :okButtonProps="{ class:{'jee-hidden': disableSubmit} }"
     @cancel="handleCancel"
     cancelText="关闭">
-    <khgjgl-form ref="realForm" @ok="submitCallback" :disabled="disableSubmit"></khgjgl-form>
+    <yxxmxxdj-form ref="realForm" @ok="submitCallback" :disabled="disableSubmit"></yxxmxxdj-form>
   </j-modal>
 </template>
 
 <script>
 
-  import KhgjglForm from './KhgjglForm'
+  import YxxmxxdjForm from './YxxmxxdjForm'
   export default {
-    name: 'KhgjglModal',
+    name: 'YxxmxxdjModal',
     components: {
-      KhgjglForm
+      YxxmxxdjForm
     },
     data () {
       return {
         title:'',
-        width:'100%',
-        high:'100%',
+        width:896,
         visible: false,
         disableSubmit: false
       }

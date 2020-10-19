@@ -46,27 +46,11 @@
     </div>
     <!-- 查询区域-END -->
 
-    <!-- 操作按钮区域 -->
-    <div class="table-operator">
-      <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>
-      <a-button type="primary" icon="download" @click="handleExportXls('营销项目信息登记')">导出</a-button>
-      <a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl" @change="handleImportExcel">
-        <a-button type="primary" icon="import">导入</a-button>
-      </a-upload>
-      <a-dropdown v-if="selectedRowKeys.length > 0">
-        <a-menu slot="overlay">
-          <a-menu-item key="1" @click="batchDel"><a-icon type="delete"/>删除</a-menu-item>
-        </a-menu>
-        <a-button style="margin-left: 8px"> 批量操作 <a-icon type="down" /></a-button>
-      </a-dropdown>
-    </div>
-
     <!-- table区域-begin -->
     <div>
       <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
         <i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{ selectedRowKeys.length }}</a>项
         <a style="margin-left: 24px" @click="onClearSelected">清空</a>
-
 
         <span style="float:right;" class="navbar">
           <a @click="loadData()"><a-icon type="sync" />刷新</a>
@@ -86,6 +70,7 @@
             <a><a-icon type="setting" />设置</a>
           </a-popover>
         </span>
+
       </div>
 
       <a-table
@@ -123,28 +108,18 @@
         </template>
 
         <span slot="action" slot-scope="text, record">
-          <a @click="handleEdit(record)">编辑</a>
-
+          <a @click="handleEdit(record)">调整</a>
           <a-divider type="vertical" />
-          <a-dropdown>
-            <a class="ant-dropdown-link">更多 <a-icon type="down" /></a>
-            <a-menu slot="overlay">
-              <a-menu-item>
-                <a @click="handleDetail(record)">详情</a>
-              </a-menu-item>
-              <a-menu-item>
-                <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.id)">
-                  <a>删除</a>
-                </a-popconfirm>
-              </a-menu-item>
-            </a-menu>
-          </a-dropdown>
+          <a @click="history()">历史</a>
+          <a-divider type="vertical" />
+
         </span>
 
       </a-table>
     </div>
 
     <yxxmxxdj-modal ref="modalForm" @ok="modalFormOk"></yxxmxxdj-modal>
+    <history-table-list ref="historylist"></history-table-list>
   </a-card>
 </template>
 
@@ -156,12 +131,14 @@ import { JeecgListMixin } from '@/mixins/JeecgListMixin'
 import YxxmxxdjModal from './modules/YxxmxxdjModal'
 import JDictSelectTag from '@/components/dict/JDictSelectTag.vue'
 import {filterMultiDictText} from '@/components/dict/JDictSelectUtil'
+import HistoryTableList from "./modules/HistoryTableList"
 import Vue from 'vue'
 
 export default {
   name: 'YxxmxxdjList',
   mixins:[JeecgListMixin, mixinDevice],
   components: {
+    HistoryTableList,
     JDictSelectTag,
     YxxmxxdjModal
   },
@@ -313,6 +290,12 @@ export default {
     },
   },
   methods: {
+    history(){
+      this.visible = true;
+      this.$refs.historylist.add()
+      this.$refs.historylist.title = '历史记录'
+      this.$refs.historylist.disableSubmit = false
+    },
     initDictConfig(){
     },
 

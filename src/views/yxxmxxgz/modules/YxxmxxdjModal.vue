@@ -1,7 +1,7 @@
 <template>
   <j-modal
     :title="title"
-    :width="1400"
+    :width="width"
     :visible="visible"
     :maskClosable="false"
     switchFullscreen
@@ -24,7 +24,7 @@
     data() {
       return {
         title:'',
-        width:800,
+        width:1250,
         visible: false,
         disableSubmit: false
       }

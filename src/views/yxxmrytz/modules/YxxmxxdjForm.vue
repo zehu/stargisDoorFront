@@ -3,103 +3,35 @@
     <j-form-container :disabled="formDisabled">
       <a-form :form="form" slot="detail">
         <a-row>
-<!--          <a-col :span="12">-->
-<!--            <a-form-item label="更新日期" :labelCol="labelCol" :wrapperCol="wrapperCol">-->
-<!--              <j-date placeholder="请选择更新日期" v-decorator="['updateTime']" :trigger-change="true" :show-time="true" date-format="YYYY-MM-DD HH:mm:ss" style="width: 100%"/>-->
-<!--            </a-form-item>-->
-<!--          </a-col>-->
+
           <a-col :span="24">
-            <a-form-item label="项目名称" :labelCol="{span:3}" :wrapperCol="{span:20}">
-              <j-dict-select-tag type="list" v-decorator="['projectName', validatorRules.projectName]" :trigger-change="true" dictCode="cshxmcj,project_name,project_name" placeholder="请选择项目名称"/>
-            </a-form-item>
-          </a-col>
-          <a-col :span="24">
-            <a-form-item label="甲方单位名称" :labelCol="{span:3}" :wrapperCol="{span:20}">
-              <j-dict-select-tag type="list" v-decorator="['partaName', validatorRules.partaName]" :trigger-change="true" dictCode="cshxmcj,parta_name,parta_name" placeholder="请选择甲方单位名称"/>
-            </a-form-item>
-          </a-col>
-          <a-col :span="12">
-            <a-form-item label="甲方联系人" :labelCol="labelCol" :wrapperCol="wrapperCol">
-              <j-dict-select-tag type="list" v-decorator="['partaContactPerson', validatorRules.partaContactPerson]" :trigger-change="true" dictCode="cshxmcj,parta_person,parta_person" placeholder="请选择甲方联系人"/>
-            </a-form-item>
-          </a-col>
-          <a-col :span="12">
-            <a-form-item label="联系人手机" :labelCol="labelCol" :wrapperCol="wrapperCol">
-              <a-input v-decorator="['iphone', validatorRules.iphone]" placeholder="请输入联系人手机"></a-input>
-            </a-form-item>
-          </a-col>
-          <a-col :span="12">
-            <a-form-item label="联系人职务" :labelCol="labelCol" :wrapperCol="wrapperCol">
-              <a-input v-decorator="['post']" placeholder="请输入联系人职务"></a-input>
-            </a-form-item>
-          </a-col>
-          <a-col :span="12">
-            <a-form-item label="联系人角色" :labelCol="labelCol" :wrapperCol="wrapperCol">
-              <a-input v-decorator="['role']" placeholder="请输入联系人角色"></a-input>
-            </a-form-item>
-          </a-col>
-          <a-col :span="12">
-            <a-form-item label="项目预算" :labelCol="labelCol" :wrapperCol="wrapperCol">
-              <a-input v-decorator="['budget']" placeholder="请输入项目预算"></a-input>
-            </a-form-item>
-          </a-col>
-          <a-col :span="12">
-            <a-form-item label="业务类型" :labelCol="labelCol" :wrapperCol="wrapperCol">
-              <a-input v-decorator="['businessYpe']" placeholder="请输入业务类型"></a-input>
-            </a-form-item>
-          </a-col>
-          <a-col :span="12">
-            <a-form-item label="经营类型" :labelCol="labelCol" :wrapperCol="wrapperCol">
-              <a-input v-decorator="['managementYpe']" placeholder="请输入经营类型"></a-input>
-            </a-form-item>
-          </a-col>
-          <a-col :span="12">
-            <a-form-item label="当前进度" :labelCol="labelCol" :wrapperCol="wrapperCol">
-              <a-input v-decorator="['progress']" placeholder="请输入当前进度"></a-input>
-            </a-form-item>
-          </a-col>
-          <a-col :span="12">
             <a-form-item label="所在部门" :labelCol="labelCol" :wrapperCol="wrapperCol">
               <a-input v-decorator="['department']" placeholder="请输入所在部门"></a-input>
             </a-form-item>
           </a-col>
-          <a-col :span="12">
+          <a-col :span="24">
             <a-form-item label="独立营销人" :labelCol="labelCol" :wrapperCol="wrapperCol">
               <a-input v-decorator="['independentMarketer']" placeholder="请输入独立营销人"></a-input>
             </a-form-item>
           </a-col>
-          <a-col :span="12">
-            <a-form-item label="初次登记项目所处阶段" :labelCol="labelCol" :wrapperCol="wrapperCol">
-              <a-input v-decorator="['status']" placeholder="请输入初次登记项目所处阶段"></a-input>
-            </a-form-item>
-          </a-col>
-          <a-col :span="12">
-            <a-form-item label="辅助营销人员" :labelCol="labelCol" :wrapperCol="wrapperCol">
-              <a-input v-decorator="['managementPerson']" placeholder="请输入辅助营销人员"></a-input>
-            </a-form-item>
-          </a-col>
-          <a-col :span="12">
-            <a-form-item label="是否存在经营人员调整" :labelCol="labelCol" :wrapperCol="wrapperCol">
-              <j-dict-select-tag type="radio" v-decorator="['turnover']" :trigger-change="true" dictCode="yn" placeholder="请选择是否存在经营人员调整"/>
-            </a-form-item>
-          </a-col>
-          <a-col :span="12">
-            <a-form-item label="是否新业务" :labelCol="labelCol" :wrapperCol="wrapperCol">
-              <j-dict-select-tag type="radio" v-decorator="['newBusiness']" :trigger-change="true" dictCode="yn" placeholder="请选择是否新业务"/>
-            </a-form-item>
-          </a-col>
-          <a-col :span="12">
-            <a-form-item label="是否新客户" :labelCol="labelCol" :wrapperCol="wrapperCol">
-              <j-dict-select-tag type="radio" v-decorator="['newCustomer']" :trigger-change="true" dictCode="yn" placeholder="请选择是否新客户"/>
-            </a-form-item>
-          </a-col>
           <a-col :span="24">
-            <a-form-item label="项目内容" :labelCol="{span:3}" :wrapperCol="{span:20}">
-              <a-textarea v-decorator="['projectContent']" rows="4" placeholder="请输入项目内容"/>
+            <a-form-item label="更新日期" :labelCol="labelCol" :wrapperCol="wrapperCol">
+              <j-date placeholder="请选择更新日期" v-decorator="['updateTime']" :trigger-change="true" :show-time="true" date-format="YYYY-MM-DD HH:mm:ss" style="width: 100%"/>
             </a-form-item>
           </a-col>
+<!--          <a-col :span="24">-->
+<!--            <a-form-item label="初次登记项目所处阶段" :labelCol="labelCol" :wrapperCol="wrapperCol">-->
+<!--              <a-input v-decorator="['status']" placeholder="请输入初次登记项目所处阶段"></a-input>-->
+<!--            </a-form-item>-->
+<!--          </a-col>-->
+<!--          <a-col :span="24">-->
+<!--            <a-form-item label="辅助营销人员" :labelCol="labelCol" :wrapperCol="wrapperCol">-->
+<!--              <a-input v-decorator="['managementPerson']" placeholder="请输入辅助营销人员"></a-input>-->
+<!--            </a-form-item>-->
+<!--          </a-col>-->
+
           <a-col :span="24">
-            <a-form-item label="备注" :labelCol="{span:3}" :wrapperCol="{span:20}">
+            <a-form-item label="备注" :labelCol="labelCol" :wrapperCol="wrapperCol">
               <a-textarea v-decorator="['remark']" rows="4" placeholder="请输入备注"/>
             </a-form-item>
           </a-col>
@@ -154,7 +86,7 @@
         model: {},
         labelCol: {
           xs: { span: 24 },
-          sm: { span: 6 },
+          sm: { span: 5 },
         },
         wrapperCol: {
           xs: { span: 24 },

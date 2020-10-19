@@ -12,7 +12,7 @@
     <!-- 操作按钮区域 -->
     <div class="table-operator">
       <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>
-      <a-button type="primary" icon="download" @click="handleExportXls('营销项目跟踪记录')">导出</a-button>
+      <a-button type="primary" icon="download" @click="handleExportXls('历史表')">导出</a-button>
       <a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl" @change="handleImportExcel">
         <a-button type="primary" icon="import">导入</a-button>
       </a-upload>
@@ -87,8 +87,7 @@
       </a-table>
     </div>
 
-    <yxxmgzjl-modal ref="modalForm" @ok="modalFormOk"></yxxmgzjl-modal>
-
+    <history-table-modal ref="modalForm" @ok="modalFormOk"></history-table-modal>
   </a-card>
 </template>
 
@@ -97,24 +96,21 @@
   import '@/assets/less/TableExpand.less'
   import { mixinDevice } from '@/utils/mixin'
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
-  import YxxmgzjlModal from './modules/YxxmgzjlModal'
-  import JVxeDemoCell from "../../components/JVxeCells/estar/JVxeDemoCell";
-
+  import HistoryTableModal from './modules/HistoryTableModal'
 
   export default {
-    name: 'YxxmgzjlList',
+    name: 'HistoryTableList',
     mixins:[JeecgListMixin, mixinDevice],
     components: {
-
-      YxxmgzjlModal
+      HistoryTableModal
     },
     data () {
       return {
-        description: '营销项目跟踪记录管理页面',
+        description: '历史表管理页面',
         // 表头
         columns: [
           {
-            title: '序号',
+            title: '#',
             dataIndex: '',
             key:'rowIndex',
             width:60,
@@ -124,67 +120,57 @@
             }
           },
           {
-            title:'项目名称',
+            title:'所在部门',
             align:"center",
-            dataIndex: 'projectName'
+            dataIndex: 'department'
           },
           {
-            title:'甲方单位名称',
+            title:'经营人员',
             align:"center",
-            dataIndex: 'partaName'
+            dataIndex: 'businessPersonnel'
           },
           {
-            title:'拜访对象',
+            title:'状态',
             align:"center",
-            dataIndex: 'visitorObject'
+            dataIndex: 'status'
           },
           {
-            title:'拜访时间',
+            title:'跟进开始时间',
             align:"center",
-            dataIndex: 'visitTime',
+            dataIndex: 'startTime',
             customRender:function (text) {
               return !text?"":(text.length>10?text.substr(0,10):text)
             }
           },
           {
-            title:'项目所处营销阶段',
+            title:'跟进结束时间',
             align:"center",
-            dataIndex: 'status'
+            dataIndex: 'endTime',
+            customRender:function (text) {
+              return !text?"":(text.length>10?text.substr(0,10):text)
+            }
           },
           {
-            title:'沟通结果',
+            title:'时长',
             align:"center",
-            dataIndex: 'result',
-            scopedSlots: {customRender: 'htmlSlot'}
-          },
-          {
-            title:'存在问题',
-            align:"center",
-            dataIndex: 'problems',
-            scopedSlots: {customRender: 'htmlSlot'}
-          },
-          {
-            title: '实例',
-            key:'demo',
-            type:JVxeDemoCell.demo,
-            width: '180px'
+            dataIndex: 'duration'
           },
           {
             title: '操作',
             dataIndex: 'action',
             align:"center",
             fixed:"right",
-            width: '160px',
+            width:147,
             scopedSlots: { customRender: 'action' }
           }
         ],
         url: {
-          list: "/estar/yxxmgzjl/list",
-          delete: "/estar/yxxmgzjl/delete",
-          deleteBatch: "/estar/yxxmgzjl/deleteBatch",
-          exportXlsUrl: "/estar/yxxmgzjl/exportXls",
-          importExcelUrl: "estar/yxxmgzjl/importExcel",
-
+          list: "/estar/historyTable/list",
+          delete: "/estar/historyTable/delete",
+          deleteBatch: "/estar/historyTable/deleteBatch",
+          exportXlsUrl: "/estar/historyTable/exportXls",
+          importExcelUrl: "estar/historyTable/importExcel",
+          
         },
         dictOptions:{},
       }

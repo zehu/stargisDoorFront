@@ -28,7 +28,7 @@
       </a-form>
     </div>
     <!-- 查询区域-END -->
-    
+
     <!-- 操作按钮区域 -->
     <div class="table-operator">
       <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>
@@ -49,7 +49,30 @@
       <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
         <i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{ selectedRowKeys.length }}</a>项
         <a style="margin-left: 24px" @click="onClearSelected">清空</a>
+
+        <span style="float:right;">
+          <a @click="loadData()"><a-icon type="sync" />刷新</a>
+          <a-divider type="vertical" />
+          <a-popover title="自定义列" trigger="click" placement="leftBottom">
+            <template slot="content">
+              <a-checkbox-group @change="onColSettingsChange" v-model="settingColumns" :defaultValue="settingColumns">
+                <a-row>
+                  <template v-for="(item,index) in defColumns">
+                    <template v-if="item.key!='rowIndex'&& item.dataIndex!='action'">
+                        <a-col :span="12"><a-checkbox :value="item.dataIndex">{{ item.title }}</a-checkbox></a-col>
+                    </template>
+                  </template>
+                </a-row>
+              </a-checkbox-group>
+            </template>
+            <a><a-icon type="setting" />设置</a>
+          </a-popover>
+        </span>
       </div>
+
+
+
+
 
       <a-table
         ref="table"
@@ -117,6 +140,7 @@
   import BmzbglModal from './modules/BmzbglModal'
   import JDate from '@/components/jeecg/JDate.vue'
   import '@/assets/less/TableExpand.less'
+  import Vue from 'vue'
 
   export default {
     name: "BmzbglList",
@@ -128,10 +152,14 @@
     data () {
       return {
         description: '部门指标管理管理页面',
-        // 表头
-        columns: [
+        //表头
+        columns:[],
+        //列设置
+        settingColumns:[],
+        //列定义
+        defColumns: [
           {
-            title: '#',
+            title: '序号',
             dataIndex: '',
             key:'rowIndex',
             width:60,
@@ -172,6 +200,7 @@
             title: '操作',
             dataIndex: 'action',
             align:"center",
+            width: '160px',
             fixed:"right",
             scopedSlots: { customRender: 'action' },
           }
@@ -182,12 +211,13 @@
           deleteBatch: "/estar/bmzbgl/deleteBatch",
           exportXlsUrl: "/estar/bmzbgl/exportXls",
           importExcelUrl: "estar/bmzbgl/importExcel",
-          
+
         },
         dictOptions:{},
       }
     },
     created() {
+      this.initColumns();
     },
     computed: {
       importExcelUrl: function(){
@@ -197,7 +227,51 @@
     methods: {
       initDictConfig(){
       },
-       
+
+      //列设置更改事件
+      onColSettingsChange (checkedValues) {
+        var key = this.$route.name+":colsettings";
+        Vue.ls.set(key, checkedValues, 7 * 24 * 60 * 60 * 1000)
+        this.settingColumns = checkedValues;
+        const cols = this.defColumns.filter(item => {
+          if(item.key =='rowIndex'|| item.dataIndex=='action'){
+            return true
+          }
+          if (this.settingColumns.includes(item.dataIndex)) {
+            return true
+          }
+          return false
+        })
+        this.columns =  cols;
+      },
+      initColumns(){
+        //权限过滤（列权限控制时打开，修改第二个参数为授权码前缀）
+        //this.defColumns = colAuthFilter(this.defColumns,'testdemo:');
+
+        var key = this.$route.name+":colsettings";
+        let colSettings= Vue.ls.get(key);
+        if(colSettings==null||colSettings==undefined){
+          let allSettingColumns = [];
+          this.defColumns.forEach(function (item,i,array ) {
+            allSettingColumns.push(item.dataIndex);
+          })
+          this.settingColumns = allSettingColumns;
+          this.columns = this.defColumns;
+        }else{
+          this.settingColumns = colSettings;
+          const cols = this.defColumns.filter(item => {
+            if(item.key =='rowIndex'|| item.dataIndex=='action'){
+              return true;
+            }
+            if (colSettings.includes(item.dataIndex)) {
+              return true;
+            }
+            return false;
+          })
+          this.columns =  cols;
+        }
+      }
+
     }
   }
 </script>

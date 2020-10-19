@@ -222,7 +222,7 @@ export default {
       //列定义
       defColumns: [
         {
-          title: '#',
+          title: '序号',
           dataIndex: '',
           key: 'rowIndex',
           width: 60,
@@ -325,7 +325,7 @@ export default {
           dataIndex: 'action',
           align: 'center',
           fixed: 'right',
-          width: 147,
+          width: '160px',
           scopedSlots: { customRender: 'action' }
         }
       ],

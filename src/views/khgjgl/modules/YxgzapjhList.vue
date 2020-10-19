@@ -1,36 +1,17 @@
 <template>
-  <a-card :bordered="false">
-    <!-- 查询区域 -->
-    <div class="table-page-search-wrapper">
-      <a-form layout="inline" @keyup.enter.native="searchQuery">
-        <a-row :gutter="24">
-        </a-row>
-      </a-form>
-    </div>
-    <!-- 查询区域-END -->
-
-    <!-- 操作按钮区域 -->
-    <div class="table-operator">
-      <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>
-      <a-button type="primary" icon="download" @click="handleExportXls('营销项目跟踪记录')">导出</a-button>
-      <a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl" @change="handleImportExcel">
-        <a-button type="primary" icon="import">导入</a-button>
-      </a-upload>
-      <a-dropdown v-if="selectedRowKeys.length > 0">
-        <a-menu slot="overlay">
-          <a-menu-item key="1" @click="batchDel"><a-icon type="delete"/>删除</a-menu-item>
-        </a-menu>
-        <a-button style="margin-left: 8px"> 批量操作 <a-icon type="down" /></a-button>
-      </a-dropdown>
-    </div>
+  <j-modal
+    :title="title"
+    :width="1200"
+    :visible="aa"
+    :maskClosable="false"
+    switchFullscreen
+    @ok="handleOk"
+    :okButtonProps="{ class:{'jee-hidden': disableSubmit} }"
+    @cancel="handleCancel">
+    <a-card :bordered="false">
 
     <!-- table区域-begin -->
     <div>
-      <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
-        <i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择 <a style="font-weight: 600">{{ selectedRowKeys.length }}</a>项
-        <a style="margin-left: 24px" @click="onClearSelected">清空</a>
-      </div>
-
       <a-table
         ref="table"
         size="middle"
@@ -86,10 +67,8 @@
 
       </a-table>
     </div>
-
-    <yxxmgzjl-modal ref="modalForm" @ok="modalFormOk"></yxxmgzjl-modal>
-
   </a-card>
+  </j-modal>
 </template>
 
 <script>
@@ -97,24 +76,23 @@
   import '@/assets/less/TableExpand.less'
   import { mixinDevice } from '@/utils/mixin'
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
-  import YxxmgzjlModal from './modules/YxxmgzjlModal'
-  import JVxeDemoCell from "../../components/JVxeCells/estar/JVxeDemoCell";
 
-
+  let aa;
   export default {
-    name: 'YxxmgzjlList',
+    name: 'YxgzapjhList',
     mixins:[JeecgListMixin, mixinDevice],
     components: {
 
-      YxxmgzjlModal
     },
     data () {
+
       return {
-        description: '营销项目跟踪记录管理页面',
+        aa:false,
+        description: '本周工作安排情况管理页面',
         // 表头
         columns: [
           {
-            title: '序号',
+            title: '#',
             dataIndex: '',
             key:'rowIndex',
             width:60,
@@ -124,66 +102,58 @@
             }
           },
           {
-            title:'项目名称',
+            title:'拜访人',
             align:"center",
-            dataIndex: 'projectName'
+            dataIndex: 'visiter'
           },
           {
-            title:'甲方单位名称',
+            title:'拜访目的',
             align:"center",
-            dataIndex: 'partaName'
+            dataIndex: 'purpose'
           },
           {
-            title:'拜访对象',
+            title:'时间日期',
             align:"center",
-            dataIndex: 'visitorObject'
-          },
-          {
-            title:'拜访时间',
-            align:"center",
-            dataIndex: 'visitTime',
+            dataIndex: 'timeDate',
             customRender:function (text) {
               return !text?"":(text.length>10?text.substr(0,10):text)
             }
           },
           {
-            title:'项目所处营销阶段',
+            title:'时间段',
             align:"center",
-            dataIndex: 'status'
+            dataIndex: 'timeSlot'
           },
           {
-            title:'沟通结果',
+            title:'地点',
             align:"center",
-            dataIndex: 'result',
-            scopedSlots: {customRender: 'htmlSlot'}
+            dataIndex: 'place'
           },
           {
-            title:'存在问题',
+            title:'预期目标',
             align:"center",
-            dataIndex: 'problems',
-            scopedSlots: {customRender: 'htmlSlot'}
+            dataIndex: 'expectedTarget'
           },
           {
-            title: '实例',
-            key:'demo',
-            type:JVxeDemoCell.demo,
-            width: '180px'
+            title:'实际完成情况',
+            align:"center",
+            dataIndex: 'actualCompletion'
           },
           {
             title: '操作',
             dataIndex: 'action',
             align:"center",
             fixed:"right",
-            width: '160px',
+            width:147,
             scopedSlots: { customRender: 'action' }
           }
         ],
         url: {
-          list: "/estar/yxxmgzjl/list",
-          delete: "/estar/yxxmgzjl/delete",
-          deleteBatch: "/estar/yxxmgzjl/deleteBatch",
-          exportXlsUrl: "/estar/yxxmgzjl/exportXls",
-          importExcelUrl: "estar/yxxmgzjl/importExcel",
+          list: "/estar/yxgzapjh/list",
+          // delete: "/estar/yxgzapjh/delete",
+          // deleteBatch: "/estar/yxgzapjh/deleteBatch",
+          // exportXlsUrl: "/estar/yxgzapjh/exportXls",
+          // importExcelUrl: "estar/yxgzapjh/importExcel",
 
         },
         dictOptions:{},
@@ -197,6 +167,17 @@
       },
     },
     methods: {
+      add () {
+        this.aa = !aa;
+      },
+      handleOk(e) {
+        console.log(e);
+
+        this.aa = false;
+      },
+      handleCancel(){
+        this.aa = false;
+      },
       initDictConfig(){
       }
     }

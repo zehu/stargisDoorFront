@@ -8,23 +8,22 @@
     :okButtonProps="{ class:{'jee-hidden': disableSubmit} }"
     @cancel="handleCancel"
     cancelText="关闭">
-    <khgjgl-form ref="realForm" @ok="submitCallback" :disabled="disableSubmit"></khgjgl-form>
+    <history-table-form ref="realForm" @ok="submitCallback" :disabled="disableSubmit"></history-table-form>
   </j-modal>
 </template>
 
 <script>
 
-  import KhgjglForm from './KhgjglForm'
+  import HistoryTableForm from './HistoryTableForm'
   export default {
-    name: 'KhgjglModal',
+    name: 'HistoryTableModal',
     components: {
-      KhgjglForm
+      HistoryTableForm
     },
     data () {
       return {
         title:'',
-        width:'100%',
-        high:'100%',
+        width:800,
         visible: false,
         disableSubmit: false
       }

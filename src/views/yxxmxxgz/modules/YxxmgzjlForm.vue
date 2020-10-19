@@ -8,54 +8,63 @@
     @ok="handleOk"
     :okButtonProps="{ class:{'jee-hidden': disableSubmit} }"
     @cancel="handleCancel">
-  <a-spin :spinning="confirmLoading">
-    <j-form-container :disabled="formDisabled">
-      <a-form :form="form" slot="detail">
-        <a-row>
-          <a-col :span="24">
-            <a-form-item label="项目名称" :labelCol="labelCol" :wrapperCol="wrapperCol">
-              <a-input v-decorator="['projectName']" placeholder="请输入项目名称"></a-input>
-            </a-form-item>
-          </a-col>
-          <a-col :span="24">
-            <a-form-item label="甲方单位名称" :labelCol="labelCol" :wrapperCol="wrapperCol">
-              <a-input v-decorator="['partaName']" placeholder="请输入甲方单位名称"></a-input>
-            </a-form-item>
-          </a-col>
-          <a-col :span="24">
-            <a-form-item label="拜访对象" :labelCol="labelCol" :wrapperCol="wrapperCol">
-              <a-input v-decorator="['visitorObject']" placeholder="请输入拜访对象"></a-input>
-            </a-form-item>
-          </a-col>
-          <a-col :span="24">
-            <a-form-item label="拜访时间" :labelCol="labelCol" :wrapperCol="wrapperCol">
-              <j-date placeholder="请选择拜访时间" v-decorator="['visitTime']" :trigger-change="true" style="width: 100%"/>
-            </a-form-item>
-          </a-col>
-          <a-col :span="24">
-            <a-form-item label="项目所处营销阶段" :labelCol="labelCol" :wrapperCol="wrapperCol">
-              <a-input v-decorator="['status']" placeholder="请输入项目所处营销阶段"></a-input>
-            </a-form-item>
-          </a-col>
-          <a-col :span="24">
-            <a-form-item label="沟通结果" :labelCol="labelCol" :wrapperCol="wrapperCol">
-              <j-editor v-decorator="['result',{trigger:'input'}]"/>
-            </a-form-item>
-          </a-col>
-          <a-col :span="24">
-            <a-form-item label="存在问题" :labelCol="labelCol" :wrapperCol="wrapperCol">
-              <j-editor v-decorator="['problems',{trigger:'input'}]"/>
-            </a-form-item>
-          </a-col>
-          <a-col v-if="showFlowSubmitButton" :span="24" style="text-align: center">
-            <a-button @click="submitForm">提 交</a-button>
-          </a-col>
-        </a-row>
-      </a-form>
-    </j-form-container>
-  </a-spin>
-
+    <a-spin :spinning="confirmLoading">
+      <j-form-container :disabled="formDisabled">
+        <a-form :form="form" slot="detail">
+          <j-vxe-file-cell/>
+          <a-row>
+            <a-col :span="24">
+              <a-form-item label="项目名称" :labelCol="labelCol" :wrapperCol="wrapperCol">
+                <a-input v-decorator="['projectName']" placeholder="请输入项目名称"></a-input>
+              </a-form-item>
+            </a-col>
+            <a-col :span="24">
+              <a-form-item label="甲方单位名称" :labelCol="labelCol" :wrapperCol="wrapperCol">
+                <a-input v-decorator="['partaName']" placeholder="请输入甲方单位名称"></a-input>
+              </a-form-item>
+            </a-col>
+            <a-col :span="24">
+              <a-form-item label="拜访对象" :labelCol="labelCol" :wrapperCol="wrapperCol">
+                <a-input v-decorator="['visitorObject']" placeholder="请输入拜访对象"></a-input>
+              </a-form-item>
+            </a-col>
+            <a-col :span="24">
+              <a-form-item label="拜访时间" :labelCol="labelCol" :wrapperCol="wrapperCol">
+                <j-date placeholder="请选择拜访时间" v-decorator="['visitTime']" :trigger-change="true" style="width: 100%"/>
+              </a-form-item>
+            </a-col>
+            <a-col :span="24">
+              <a-form-item label="项目所处营销阶段" :labelCol="labelCol" :wrapperCol="wrapperCol">
+                <a-input v-decorator="['status']" placeholder="请输入项目所处营销阶段"></a-input>
+              </a-form-item>
+            </a-col>
+            <a-col :span="24">
+              <a-form-item label="沟通结果" :labelCol="labelCol" :wrapperCol="wrapperCol">
+                <a-textarea v-decorator="['result']" rows="4" placeholder="请输入 沟通结果"/>
+<!--                <j-editor v-decorator="['result',{trigger:'input'}]"/>-->
+              </a-form-item>
+            </a-col>
+            <a-col :span="24">
+              <a-form-item label="存在问题" :labelCol="labelCol" :wrapperCol="wrapperCol">
+                <a-textarea v-decorator="['problems']" rows="4" placeholder="请输入存在问题"/>
+<!--                <j-editor v-decorator="['problems',{trigger:'input'}]"/>-->
+              </a-form-item>
+            </a-col>
+            <a-col :span="24" hidden>
+              <a-form-item label="营销项目信息登记id" :labelCol="labelCol" :wrapperCol="wrapperCol">
+                <a-textarea v-decorator="['yxxmxxdjId']" rows="1" placeholder="ID"/>
+<!--                <j-editor v-decorator="['problems',{trigger:'input'}]"/>-->
+              </a-form-item>
+            </a-col>
+            <a-col v-if="showFlowSubmitButton" :span="24" style="text-align: center">
+              <a-button @click="submitForm">提 交</a-button>
+            </a-col>
+          </a-row>
+        </a-form>
+      </j-form-container>
+    </a-spin>
   </j-modal>
+
 </template>
 
 <script>
@@ -67,9 +76,11 @@
   import JDate from '@/components/jeecg/JDate'
   import JEditor from '@/components/jeecg/JEditor'
 
+
   export default {
     name: 'YxxmgzjlForm',
     components: {
+
       JFormContainer,
       JDate,
       JEditor,
@@ -99,7 +110,7 @@
         form: this.$form.createForm(this),
         model: {},
         title:'',
-        width:1000,
+        width:800,
         visible: false,
         disableSubmit: false,
         labelCol: {
@@ -144,8 +155,6 @@
       this.showFlowData();
     },
     methods: {
-
-
       handleOk () {
         const that = this;
         // 触发表单验证
@@ -158,7 +167,7 @@
               httpurl+=this.url.add;
               method = 'post';
             }else{
-              httpurl+=this.url.edit;
+              httpurl+=this.url.add;
               method = 'put';
             }
             let formData = Object.assign(this.model, values);
@@ -179,11 +188,11 @@
 
         })
       },
+
       add () {
         this.edit({});
       },
       edit (record) {
-        debugger
         this.form.resetFields();
         this.model = Object.assign({}, record);
         this.visible = true;
@@ -202,6 +211,7 @@
           });
         }
       },
+
       submitForm () {
         const that = this;
         // 触发表单验证
@@ -214,8 +224,8 @@
               httpurl+=this.url.add;
               method = 'post';
             }else{
-              httpurl+=this.url.edit;
-               method = 'put';
+              httpurl+=this.url.add;
+               method = 'post';
             }
             let formData = Object.assign(this.model, values);
             console.log("表单提交数据",formData)
@@ -245,6 +255,7 @@
       handleCancel () {
         this.close()
       }
+
     }
   }
 </script>

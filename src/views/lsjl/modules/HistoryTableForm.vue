@@ -1,54 +1,45 @@
 <template>
-
-    <a-spin :spinning="confirmLoading">
-      <j-form-container :disabled="formDisabled">
-        <a-form :form="form" slot="detail">
-          <j-vxe-file-cell/>
-          <a-row>
-            <a-col :span="24">
-              <a-form-item label="项目名称" :labelCol="labelCol" :wrapperCol="wrapperCol">
-                <a-input v-decorator="['projectName']" placeholder="请输入项目名称"></a-input>
-              </a-form-item>
-            </a-col>
-            <a-col :span="24">
-              <a-form-item label="甲方单位名称" :labelCol="labelCol" :wrapperCol="wrapperCol">
-                <a-input v-decorator="['partaName']" placeholder="请输入甲方单位名称"></a-input>
-              </a-form-item>
-            </a-col>
-            <a-col :span="24">
-              <a-form-item label="拜访对象" :labelCol="labelCol" :wrapperCol="wrapperCol">
-                <a-input v-decorator="['visitorObject']" placeholder="请输入拜访对象"></a-input>
-              </a-form-item>
-            </a-col>
-            <a-col :span="24">
-              <a-form-item label="拜访时间" :labelCol="labelCol" :wrapperCol="wrapperCol">
-                <j-date placeholder="请选择拜访时间" v-decorator="['visitTime']" :trigger-change="true" style="width: 100%"/>
-              </a-form-item>
-            </a-col>
-            <a-col :span="24">
-              <a-form-item label="项目所处营销阶段" :labelCol="labelCol" :wrapperCol="wrapperCol">
-                <a-input v-decorator="['status']" placeholder="请输入项目所处营销阶段"></a-input>
-              </a-form-item>
-            </a-col>
-            <a-col :span="24">
-              <a-form-item label="沟通结果" :labelCol="labelCol" :wrapperCol="wrapperCol">
-                <j-editor v-decorator="['result',{trigger:'input'}]"/>
-              </a-form-item>
-            </a-col>
-            <a-col :span="24">
-              <a-form-item label="存在问题" :labelCol="labelCol" :wrapperCol="wrapperCol">
-                <j-editor v-decorator="['problems',{trigger:'input'}]"/>
-              </a-form-item>
-            </a-col>
-            <a-col v-if="showFlowSubmitButton" :span="24" style="text-align: center">
-              <a-button @click="submitForm">提 交</a-button>
-            </a-col>
-          </a-row>
-        </a-form>
-      </j-form-container>
-    </a-spin>
-
-
+  <a-spin :spinning="confirmLoading">
+    <j-form-container :disabled="formDisabled">
+      <a-form :form="form" slot="detail">
+        <a-row>
+          <a-col :span="24">
+            <a-form-item label="所在部门" :labelCol="labelCol" :wrapperCol="wrapperCol">
+              <a-input v-decorator="['department']" placeholder="请输入所在部门"></a-input>
+            </a-form-item>
+          </a-col>
+          <a-col :span="24">
+            <a-form-item label="经营人员" :labelCol="labelCol" :wrapperCol="wrapperCol">
+              <a-input v-decorator="['businessPersonnel']" placeholder="请输入经营人员"></a-input>
+            </a-form-item>
+          </a-col>
+          <a-col :span="24">
+            <a-form-item label="状态" :labelCol="labelCol" :wrapperCol="wrapperCol">
+              <a-input v-decorator="['status']" placeholder="请输入状态"></a-input>
+            </a-form-item>
+          </a-col>
+          <a-col :span="24">
+            <a-form-item label="跟进开始时间" :labelCol="labelCol" :wrapperCol="wrapperCol">
+              <j-date placeholder="请选择跟进开始时间" v-decorator="['startTime']" :trigger-change="true" style="width: 100%"/>
+            </a-form-item>
+          </a-col>
+          <a-col :span="24">
+            <a-form-item label="跟进结束时间" :labelCol="labelCol" :wrapperCol="wrapperCol">
+              <j-date placeholder="请选择跟进结束时间" v-decorator="['endTime']" :trigger-change="true" style="width: 100%"/>
+            </a-form-item>
+          </a-col>
+          <a-col :span="24">
+            <a-form-item label="时长" :labelCol="labelCol" :wrapperCol="wrapperCol">
+              <a-input v-decorator="['duration']" placeholder="请输入时长"></a-input>
+            </a-form-item>
+          </a-col>
+          <a-col v-if="showFlowSubmitButton" :span="24" style="text-align: center">
+            <a-button @click="submitForm">提 交</a-button>
+          </a-col>
+        </a-row>
+      </a-form>
+    </j-form-container>
+  </a-spin>
 </template>
 
 <script>
@@ -57,16 +48,13 @@
   import pick from 'lodash.pick'
   import { validateDuplicateValue } from '@/utils/util'
   import JFormContainer from '@/components/jeecg/JFormContainer'
-  import JDate from '@/components/jeecg/JDate'
-  import JEditor from '@/components/jeecg/JEditor'
+  import JDate from '@/components/jeecg/JDate'  
 
   export default {
-    name: 'YxxmgzjlForm',
+    name: 'HistoryTableForm',
     components: {
-
       JFormContainer,
       JDate,
-      JEditor,
     },
     props: {
       //流程表单data
@@ -92,10 +80,6 @@
       return {
         form: this.$form.createForm(this),
         model: {},
-        title:'',
-        width:800,
-        visible: false,
-        disableSubmit: false,
         labelCol: {
           xs: { span: 24 },
           sm: { span: 5 },
@@ -108,9 +92,9 @@
         validatorRules: {
         },
         url: {
-          add: "/estar/yxxmgzjl/add",
-          edit: "/estar/yxxmgzjl/edit",
-          queryById: "/estar/yxxmgzjl/queryById"
+          add: "/estar/historyTable/add",
+          edit: "/estar/historyTable/edit",
+          queryById: "/estar/historyTable/queryById"
         }
       }
     },
@@ -146,7 +130,7 @@
         this.model = Object.assign({}, record);
         this.visible = true;
         this.$nextTick(() => {
-          this.form.setFieldsValue(pick(this.model,'projectName','partaName','visitorObject','visitTime','status','result','problems'))
+          this.form.setFieldsValue(pick(this.model,'department','businessPersonnel','status','startTime','endTime','duration'))
         })
       },
       //渲染流程表单数据
@@ -188,11 +172,11 @@
               that.confirmLoading = false;
             })
           }
-
+         
         })
       },
       popupCallback(row){
-        this.form.setFieldsValue(pick(row,'projectName','partaName','visitorObject','visitTime','status','result','problems'))
+        this.form.setFieldsValue(pick(row,'department','businessPersonnel','status','startTime','endTime','duration'))
       },
     }
   }

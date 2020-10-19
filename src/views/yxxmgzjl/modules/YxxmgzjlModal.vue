@@ -9,15 +9,18 @@
     @cancel="handleCancel"
     cancelText="关闭">
     <yxxmgzjl-form ref="realForm" @ok="submitCallback" :disabled="disableSubmit"></yxxmgzjl-form>
+   <yxxmgzjl-form></yxxmgzjl-form>
   </j-modal>
 </template>
 
 <script>
 
   import YxxmgzjlForm from './YxxmgzjlForm'
+
   export default {
     name: 'YxxmgzjlModal',
     components: {
+
       YxxmgzjlForm
     },
     data () {
