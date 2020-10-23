@@ -14,7 +14,7 @@ export default {
       type: Array,
       required: true
     },
-    openKeys:{
+    openKey:{
       type: Array,
       required: true
     },
@@ -38,6 +38,7 @@ export default {
     return {
       selectedKeys: [],
       cachedOpenKeys: [],
+      openKeys:this.openKey,
       // openKeys:this.openKeyList
     }
   },
@@ -57,6 +58,13 @@ export default {
     this.updateMenu()
   },
   watch: {
+    openKey(val){
+      if(val){
+        this.openKeys=val
+      }else{
+        this.openKeys=this.openKey
+      }
+    },
     collapsed (val) {
       if (val) {
         this.cachedOpenKeys = this.openKeys.concat()

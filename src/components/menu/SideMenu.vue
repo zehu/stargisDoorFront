@@ -13,7 +13,7 @@
       @select="onSelect"
       :mode="mode"
       :style="smenuStyle"
-      :openKeys="openKeySelect"
+      :openKey="openKeySelect"
       :menu="menus"
      >
     </s-menu>
