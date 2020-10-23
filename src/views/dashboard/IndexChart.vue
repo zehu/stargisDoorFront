@@ -169,7 +169,7 @@
             <a-row>
               <a-col :xl="24" :lg="24" :md="24" :sm="24" :xs="24">
                 <div>
-<!--                  <Annx></Annx>-->
+                 <fjxx-list></fjxx-list>
                 </div>
               </a-col>
               <!--              <a-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">-->
@@ -303,9 +303,10 @@ import LineChartMultid from '@/components/chart/LineChartMultid'
 import HeadInfo from '@/components/tools/HeadInfo.vue'
 import dblb  from '@/views/dblb/DblbList.vue'
 import bjtj  from '@/views/bjtj/BjtjList.vue'
-// import Annx from '@/components/estar/FjxxList.vue'
+
 import Trend from '@/components/Trend'
 import {getLoginfo, getVisitInfo} from '@/api/api'
+import FjxxList from "@comp/estar/annex/FjxxList";
 
 const rankList = []
 for (let i = 0; i < 7; i++) {
@@ -324,6 +325,7 @@ for (let i = 0; i < 12; i += 1) {
 export default {
   name: "IndexChart",
   components: {
+    FjxxList,
     ATooltip,
     ACol,
     ChartCard,
@@ -337,7 +339,7 @@ export default {
     HeadInfo,
     dblb,
     bjtj,
-    // Annx
+
   },
   data() {
     return {

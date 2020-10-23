@@ -54,8 +54,9 @@
         </template>
         <template slot="fileSlot" slot-scope="text">
           <span v-if="!text" style="font-size: 12px;font-style: italic;">无文件</span>
+        <template v-else>
+
           <a-button
-            v-else
             :ghost="true"
             type="primary"
             icon="download"
@@ -63,25 +64,34 @@
             @click="downloadFile(text)">
             下载
           </a-button>
+          <span style="font-size: 15px; margin-left: 50px">{{text.substring(5)}}</span>
+        </template>
+
         </template>
 
         <span slot="action" slot-scope="text, record">
           <a @click="handleEdit(record)">编辑</a>
 
           <a-divider type="vertical" />
-          <a-dropdown>
-            <a class="ant-dropdown-link">更多 <a-icon type="down" /></a>
-            <a-menu slot="overlay">
-              <a-menu-item>
-                <a @click="handleDetail(record)">详情</a>
-              </a-menu-item>
-              <a-menu-item>
+
                 <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.id)">
                   <a>删除</a>
-                </a-popconfirm>
-              </a-menu-item>
-            </a-menu>
-          </a-dropdown>
+                </a-popconfirm  >
+
+          <a-divider type="vertical" />
+<!--          <a-dropdown>-->
+<!--            <a class="ant-dropdown-link">更多 <a-icon type="down" /></a>-->
+<!--            <a-menu slot="overlay">-->
+<!--              <a-menu-item>-->
+<!--                <a @click="handleDetail(record)">详情</a>-->
+<!--              </a-menu-item>-->
+<!--              <a-menu-item>-->
+<!--                <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.id)">-->
+<!--                  <a>删除</a>-->
+<!--                </a-popconfirm>-->
+<!--              </a-menu-item>-->
+<!--            </a-menu>-->
+<!--          </a-dropdown>-->
         </span>
 
       </a-table>
@@ -111,7 +121,7 @@
         // 表头
         columns: [
           {
-            title: '#',
+            title: '序号',
             dataIndex: '',
             key:'rowIndex',
             width:60,
@@ -151,7 +161,7 @@
           deleteBatch: "/estar/fjxx/deleteBatch",
           exportXlsUrl: "/estar/fjxx/exportXls",
           importExcelUrl: "estar/fjxx/importExcel",
-          
+
         },
         dictOptions:{},
       }

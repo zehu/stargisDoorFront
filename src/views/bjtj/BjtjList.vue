@@ -56,7 +56,7 @@
             <a><a-icon type="setting" />设置</a>
           </a-popover>
         </span>
-        
+
       </div>
 
       <a-table
@@ -95,21 +95,25 @@
 
         <span slot="action" slot-scope="text, record">
           <a @click="handleEdit(record)">编辑</a>
+          <a-divider type="vertical" />
+
+          <a @click="handleDetail(record)">详情</a>
 
           <a-divider type="vertical" />
-          <a-dropdown>
-            <a class="ant-dropdown-link">更多 <a-icon type="down" /></a>
-            <a-menu slot="overlay">
-              <a-menu-item>
-                <a @click="handleDetail(record)">详情</a>
-              </a-menu-item>
-              <a-menu-item>
-                <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.id)">
-                  <a>删除</a>
-                </a-popconfirm>
-              </a-menu-item>
-            </a-menu>
-          </a-dropdown>
+
+<!--          <a-dropdown>-->
+<!--            <a class="ant-dropdown-link">更多 <a-icon type="down" /></a>-->
+<!--            <a-menu slot="overlay">-->
+<!--              <a-menu-item>-->
+<!--                <a @click="handleDetail(record)">详情</a>-->
+<!--              </a-menu-item>-->
+<!--              <a-menu-item>-->
+<!--                <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.id)">-->
+<!--                  <a>删除</a>-->
+<!--                </a-popconfirm>-->
+<!--              </a-menu-item>-->
+<!--            </a-menu>-->
+<!--          </a-dropdown>-->
         </span>
 
       </a-table>
