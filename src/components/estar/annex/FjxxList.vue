@@ -12,7 +12,7 @@
     <!-- 操作按钮区域 -->
     <div class="table-operator">
       <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>
-      <a-button type="primary" icon="download" @click="handleExportXls('营销项目跟踪记录')">导出</a-button>
+      <a-button type="primary" icon="download" @click="handleExportXls('附件信息')">导出</a-button>
       <a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl" @change="handleImportExcel">
         <a-button type="primary" icon="import">导入</a-button>
       </a-upload>
@@ -87,8 +87,7 @@
       </a-table>
     </div>
 
-    <yxxmgzjl-modal ref="modalForm" @ok="modalFormOk"></yxxmgzjl-modal>
-
+    <fjxx-modal ref="modalForm" @ok="modalFormOk"></fjxx-modal>
   </a-card>
 </template>
 
@@ -97,24 +96,22 @@
   import '@/assets/less/TableExpand.less'
   import { mixinDevice } from '@/utils/mixin'
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
-  import YxxmgzjlModal from './modules/YxxmgzjlModal'
-
-
+  import FjxxModal from './modules/FjxxModal'
+  import {filterMultiDictText} from '@/components/dict/JDictSelectUtil'
 
   export default {
-    name: 'YxxmgzjlList',
+    name: 'FjxxList',
     mixins:[JeecgListMixin, mixinDevice],
     components: {
-
-      YxxmgzjlModal
+      FjxxModal
     },
     data () {
       return {
-        description: '营销项目跟踪记录管理页面',
+        description: '附件信息管理页面',
         // 表头
         columns: [
           {
-            title: '序号',
+            title: '#',
             dataIndex: '',
             key:'rowIndex',
             width:60,
@@ -124,62 +121,37 @@
             }
           },
           {
-            title:'项目名称',
+            title:'附件名称',
             align:"center",
-            dataIndex: 'projectName'
+            dataIndex: 'accessoryName'
           },
           {
-            title:'甲方单位名称',
+            title:'是否必要',
             align:"center",
-            dataIndex: 'partaName'
+            dataIndex: 'isNecessary_dictText'
           },
           {
-            title:'拜访对象',
+            title:'文件上传',
             align:"center",
-            dataIndex: 'visitorObject'
+            dataIndex: 'fileUpload',
+            scopedSlots: {customRender: 'fileSlot'}
           },
-          {
-            title:'拜访时间',
-            align:"center",
-            dataIndex: 'visitTime',
-            customRender:function (text) {
-              return !text?"":(text.length>10?text.substr(0,10):text)
-            }
-          },
-          {
-            title:'项目所处营销阶段',
-            align:"center",
-            dataIndex: 'status'
-          },
-          {
-            title:'沟通结果',
-            align:"center",
-            dataIndex: 'result',
-            scopedSlots: {customRender: 'htmlSlot'}
-          },
-          {
-            title:'存在问题',
-            align:"center",
-            dataIndex: 'problems',
-            scopedSlots: {customRender: 'htmlSlot'}
-          },
-
           {
             title: '操作',
             dataIndex: 'action',
             align:"center",
             fixed:"right",
-            width: '160px',
+            width:147,
             scopedSlots: { customRender: 'action' }
           }
         ],
         url: {
-          list: "/estar/yxxmgzjl/list",
-          delete: "/estar/yxxmgzjl/delete",
-          deleteBatch: "/estar/yxxmgzjl/deleteBatch",
-          exportXlsUrl: "/estar/yxxmgzjl/exportXls",
-          importExcelUrl: "estar/yxxmgzjl/importExcel",
-
+          list: "/estar/fjxx/list",
+          delete: "/estar/fjxx/delete",
+          deleteBatch: "/estar/fjxx/deleteBatch",
+          exportXlsUrl: "/estar/fjxx/exportXls",
+          importExcelUrl: "estar/fjxx/importExcel",
+          
         },
         dictOptions:{},
       }

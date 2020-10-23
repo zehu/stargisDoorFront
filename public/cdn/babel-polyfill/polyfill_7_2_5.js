@@ -1,4 +1,4 @@
-(function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(_dereq_,module,exports){
+(function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find modules '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(_dereq_,module,exports){
 (function (global){
 "use strict";
 
@@ -2778,7 +2778,7 @@ if (_dereq_(36)) {
       TypedArray = wrapper(function (that, data, $offset, $length) {
         anInstance(that, TypedArray, NAME);
         var klass;
-        // `ws` module bug, temporarily remove validation length for Uint8Array
+        // `ws` modules bug, temporarily remove validation length for Uint8Array
         // https://github.com/websockets/ws/pull/645
         if (!isObject(data)) return new Base(toIndex(data));
         if (data instanceof $ArrayBuffer || (klass = classof(data)) == ARRAY_BUFFER || klass == SHARED_BUFFER) {
@@ -6250,7 +6250,7 @@ module.exports = _dereq_(30);
   var runtime = global.regeneratorRuntime;
   if (runtime) {
     if (inModule) {
-      // If regeneratorRuntime is defined globally and we're in a module,
+      // If regeneratorRuntime is defined globally and we're in a modules,
       // make the exports object identical to regeneratorRuntime.
       module.exports = runtime;
     }
@@ -6260,7 +6260,7 @@ module.exports = _dereq_(30);
   }
 
   // Define the runtime globally (as expected by generated code) as either
-  // module.exports (if we're in a module) or a new, empty object.
+  // modules.exports (if we're in a modules) or a new, empty object.
   runtime = global.regeneratorRuntime = inModule ? module.exports : {};
 
   function wrap(innerFn, outerFn, self, tryLocsList) {
